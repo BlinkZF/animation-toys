@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>gsap</title>
+    <style>
+      .red{
+        width: 100px;
+        height: 100px;
+        background-color: red;
+        color: white;
+      }
+      .green{
+        width: 100px;
+        height: 100px;
+        background-color: green;
+        color: white;
+      }
+      .blue{
+        width: 100px;
+        height: 100px;
+        background-color: blue;
+        color: white;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="app">
+      <h2>动画控制方法</h2>
+      <button id="btn1" >播放</button>
+      <button id="btn2" >暂停</button>
+      <button id="btn3" >继续播放</button>
+      <button id="btn4" >反向播放</button>
+      <div class="red box">red</div>
+      <!-- <div class="green box">red</div>
+      <div class="blue box">red</div> -->
+    </div>
+    <script type="module">
+      import gsap from 'gsap'
+
+      const tween = gsap.to(['.red'], {
+          duration: 1,
+          x: 666,
+          stagger: {
+            each: 0.2, // 针对每一个进行重复
+            repeat: -1, // 动画重复执行次数，默认0。可以设置-1 表示无限重复
+            yoyo: true, // 反向动画
+            yoyoEase: true, // 动画的缓动函数, 跟正向的动画形式一样，默认是减速的，那么反向也是减速的
+          },
+          paused: true
+         })
+
+      btn1.onclick = () => {
+        tween.play() // 永远是正向的播放
+      }
+      btn2.onclick = () => {
+        tween.pause()
+      }
+      btn3.onclick = () => {
+        tween.resume() // 继续播放：会沿着当前的方向进行继续播放
+      }
+      btn4.onclick = () => {
+        // isActive 判断动画在是否正在执行
+        if(!tween.isActive()){
+          tween.reverse();
+        }
+      }
+    </script>
+  </body>
+</html>

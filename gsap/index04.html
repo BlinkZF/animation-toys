@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>gsap</title>
+    <style>
+      .red{
+        width: 100px;
+        height: 100px;
+        background-color: red;
+        color: white;
+      }
+      .green{
+        width: 100px;
+        height: 100px;
+        background-color: green;
+        color: white;
+      }
+      .blue{
+        width: 100px;
+        height: 100px;
+        background-color: blue;
+        color: white;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="app">
+      <h2>实用工具方法</h2>
+      <div id="content"></div>
+      <button id="btn1" >播放</button>
+      <div class="red box">red</div>
+      <div class="green box">green</div>
+      <div class="blue box">blue</div>
+    </div>
+    <script type="module">
+      import gsap from 'gsap'
+      
+      // btn1.onclick = () => {
+      //   gsap.to('.box',{
+      //     x: (i, ele)=>{
+      //       return (i + 1) * 200
+      //     },
+      //     duration: 1
+      //   })
+      // }
+      const boxs = gsap.utils.toArray('.box') // 转数组
+      boxs.forEach((ele, i) => {
+        gsap.to(ele, {
+          x : (i + 1) * 200,
+          duration: 1
+        })
+      });
+
+      document.addEventListener('mousemove', (e) =>{
+        // const snapVal = gsap.utils.snap(50, e.pageX); // 以50为间隔 数字变化
+        // const clampVal = gsap.utils.clamp(100, 500, snapVal); // 将snapVal的范围限制在100-500的范围之内 限制范围的工具方法
+        // content.innerHTML = clampVal
+
+        // 支持函数柯理化
+        // const snapVal = gsap.utils.snap(50)(e.pageX); // 以50为间隔 数字变化
+        // const clampVal = gsap.utils.clamp(100, 500, snapVal); // 将snapVal的范围限制在100-500的范围之内 限制范围的工具方法
+        // content.innerHTML = clampVal
+
+        // 支持管道（让多个函数一起用）
+        const snapAndClampVal = gsap.utils.pipe(gsap.utils.snap(50), gsap.utils.clamp(100, 500)); // 管道（让多个函数一起用）
+        content.innerHTML = snapAndClampVal(e.pageX)
+      })
+    </script>
+  </body>
+</html>

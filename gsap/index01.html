@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>gsap</title>
+    <style>
+      .red{
+        width: 100px;
+        height: 100px;
+        background-color: red;
+        color: white;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="app">
+      <h2>动画方法</h2>
+      <button id="btn" >按钮</button>
+      <div class="red">red</div>
+    </div>
+    <script type="module">
+      import gsap from 'gsap'
+
+      btn.onclick = () => {
+        // 到哪里去
+        // gsap.to('.red', {
+        //   duration: 1,
+        //   x: 200,
+        //   y: 300,
+        // })
+        // 从哪里来
+        // gsap.from('.red', {
+        //   duration: 1,
+        //   x: 200,
+        //   y: 300,
+        // })
+        // 从哪里到哪里去(从400-1000)
+        // gsap.fromTo('.red', {
+        //   x: 400
+        // }, {
+        //   x: 1000,
+        // })
+        // 没有动画效果，直接到400的位置
+        gsap.set('.red', {
+          x: 400
+        })
+      }
+    </script>
+  </body>
+</html>
