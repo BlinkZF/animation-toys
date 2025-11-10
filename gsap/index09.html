@@ -28,38 +28,27 @@
   </head>
   <body>
     <div id="app">
-      <h2>对象属性变化</h2>
+      <h2>时间线位置参数</h2>
       <button id="btn1" >播放</button>
-      <div id="content"></div>
+      <div class="red box">red</div>
+      <div class="green box">green</div>
+      <div class="blue box">blue</div>
     </div>
     <script type="module">
-      import gsap from 'gsap'     
-      
-      // const counter = {
-      //   value: 0,
-      // }
+      import gsap from 'gsap'      
+      btn1.onclick = () => {
+        const tl = gsap.timeline({
+          // defaults这里的设置都是针对时间线上的每一个字元素的，互相不影响的。
+          defaults:{
+            duration: 1,
+            x: 300
+          },
+        });
 
-      // btn1.onclick = () => {
-      //   gsap.to(counter, {
-      //     value: 100,
-      //     duration: 5,
-      //     snap: { value: 1 }, // 最小间隔
-      //     onUpdate: () => {
-      //       content.innerHTML = counter.value
-      //     }
-      //   })
-      // }
-
-      gsap.fromTo(content, {
-        innerHTML: 0,
-      }, {
-        innerHTML: 100,
-        duration: 5,
-        snap: { innerHTML: 5 }, // 最小间隔
-        // onUpdate: () => {
-        //   content.innerHTML = innerHTML
-        // }
-      })
+        tl.to('.red', {} , 0)
+        .to('.green', {}, '>')
+        .to('.blue', {}, '<')
+      }
     </script>
   </body>
 </html>
