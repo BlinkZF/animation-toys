@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>gsap</title>
+    <style>
+      .red{
+        width: 100px;
+        height: 100px;
+        background-color: red;
+        color: white;
+      }
+      .green{
+        width: 100px;
+        height: 100px;
+        background-color: green;
+        color: white;
+      }
+      .blue{
+        width: 100px;
+        height: 100px;
+        background-color: blue;
+        color: white;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="app">
+      <h2>Media响应式</h2>
+      <div id="content"></div>
+      <button id="btn1" >播放</button>
+      <div class="red box">red</div>
+      <div class="green box">green</div>
+      <div class="blue box">blue</div>
+    </div>
+    <script type="module">
+      import gsap from 'gsap'
+
+      const mm = gsap.matchMedia() // 响应式
+
+      btn1.onclick = () => {
+        // mm.add('(min-width: 600px)', () => {
+        //   gsap.to('.box',{
+        //     x: (i, ele)=>{
+        //       return (i + 1) * 200
+        //     },
+        //     duration: 1
+        //   })
+        // })
+
+        // // add里面第一个参数的内容和css的写法一样，第三个参数是作用范围，传递的是id
+        // mm.add('(max-width >= 600px)', () => {
+        //   gsap.to('.box',{
+        //     x: (i, ele)=>{
+        //       return (i + 1) * 200
+        //     },
+        //     duration: 1
+        //   })
+        // }, app)
+
+        // mm.add({
+        //   isDesktop: '(min-width: 600px)', // 表示pc端
+        //   isMobile: '(max-width >= 600px)', // 表示移动端
+        // }, (context) => {
+        //   const { isDesktop, isMobile } = context.conditions; // 返回的是布尔值
+
+        //   gsap.to('.box',{
+        //     x: isDesktop ? 500 : 100,
+        //     duration: 1
+        //   })
+        // }, app)
+
+        mm.add('(min-width: 600px)', (context) => {
+          gsap.to('.box',{
+            x: isDesktop ? 500 : 100,
+            duration: 1
+          })
+
+          return () => {
+            // 停止动画出发的定义清理
+            console.log('clean')
+          }
+        }, app)
+
+        mm.revert() // 让响应式动画失效
+      }
+    </script>
+  </body>
+</html>

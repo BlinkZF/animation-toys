@@ -6,60 +6,59 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>gsap</title>
     <style>
-      .red{
-        width: 100px;
-        height: 100px;
+      .wrapper{
+        width: 160px;
+        display: flex;
+        flex-wrap: wrap;
+        margin: 5px;
+      }
+      .box{
+        width: 50px;
+        height: 50px;
         background-color: red;
         color: white;
-      }
-      .green{
-        width: 100px;
-        height: 100px;
-        background-color: green;
-        color: white;
-      }
-      .blue{
-        width: 100px;
-        height: 100px;
-        background-color: blue;
-        color: white;
+        text-align: center;
+        line-height: 50px;
+        margin-top: 5px;
       }
     </style>
   </head>
   <body>
     <div id="app">
-      <h2>对象属性变化</h2>
+      <h2>Stagger高级配置</h2>
       <button id="btn1" >播放</button>
-      <div id="content"></div>
+      <div class="wrapper">
+        <div class="box">1</div>
+        <div class="box">2</div>
+        <div class="box">3</div>
+        <div class="box">4</div>
+        <div class="box">5</div>
+        <div class="box">6</div>
+        <div class="box">7</div>
+        <div class="box">8</div>
+        <div class="box">9</div>
+        <div class="box">10</div>
+        <div class="box">11</div>
+        <div class="box">12</div>
+      </div>
     </div>
     <script type="module">
-      import gsap from 'gsap'     
-      
-      // const counter = {
-      //   value: 0,
-      // }
+      import gsap from 'gsap'
 
-      // btn1.onclick = () => {
-      //   gsap.to(counter, {
-      //     value: 100,
-      //     duration: 5,
-      //     snap: { value: 1 }, // 最小间隔
-      //     onUpdate: () => {
-      //       content.innerHTML = counter.value
-      //     }
-      //   })
-      // }
+      const mm = gsap.matchMedia() // 响应式
 
-      gsap.fromTo(content, {
-        innerHTML: 0,
-      }, {
-        innerHTML: 100,
-        duration: 5,
-        snap: { innerHTML: 5 }, // 最小间隔
-        // onUpdate: () => {
-        //   content.innerHTML = innerHTML
-        // }
-      })
+      btn1.onclick = () => {
+        gsap.to('.box', {
+          x: 400,
+          duration: 1.2,
+          stagger: {
+            amount: 1.2, // 间隔/交错总量
+            from: 'center', // 从头开始 center（从中间）,edges,start,end,random
+            grid: [4, 3], // 网格布局
+            axis: 'y', // 轴方向 y 垂直方向 x 水平方向
+          }
+        })
+      }
     </script>
   </body>
 </html>
